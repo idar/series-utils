@@ -65,4 +65,9 @@ class FileNameInfoExtractorTest extends JUnitSuite {
     assertEquals(2, testObj.episode)
     assertEquals("Tru Calling", testObj.name)
   }
+
+  @Test def testInvalidFilename() {
+    testObj = new FileNameInfoExtractor("Tru.Calling.nfo")
+    assertFalse(testObj.isValid)
+  }
 }

@@ -3,7 +3,7 @@ package seriesmover
 import org.junit.{Test, Before}
 import org.junit.Assert._
 import java.io.File
-import java.net.{URL}
+import java.net.URL
 import java.lang.{Class, String}
 import org.scalatest.junit.JUnitSuite
 import seriesscanner.SerieDir
@@ -18,14 +18,14 @@ class SerieDirTest extends JUnitSuite {
   }
 
   def serieDir = {
-      val clazz: Class[_] = getClass
-      val url: URL = clazz.getResource("/serier")
-      val filename: String = url.getFile()
-      new SerieDir(new File(filename))
-    }
+    val clazz: Class[_] = getClass
+    val url: URL = clazz.getResource("/serier")
+    val filename: String = url.getFile()
+    new SerieDir(new File(filename))
+  }
 
 
-  private var testObj : SerieDir = _
+  private var testObj: SerieDir = _
 
   @Before def initialize() {
     testObj = truCallingSerieDir
@@ -35,17 +35,17 @@ class SerieDirTest extends JUnitSuite {
     assertTrue(true)
   }
 
-  @Test def isDir(){
-     assertTrue(testObj isDir)
+  @Test def isDir() {
+    assertTrue(testObj isDir)
   }
 
-  @Test def isSeasonPack(){
+  @Test def isSeasonPack() {
     assertTrue(testObj isSeasonPack)
     assertTrue(testObj.season == 2)
   }
 
-  @Test def testEpisodes(){
-    assertEquals(6 ,testObj.episodes.length)
+  @Test def testEpisodes() {
+    assertEquals(6, testObj.episodes.length)
   }
 
 

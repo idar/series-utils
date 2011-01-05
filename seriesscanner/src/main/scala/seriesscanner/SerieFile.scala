@@ -8,21 +8,43 @@ class SerieFile(val file: File) {
 
   def isDir = file isDirectory
 
+  def isValid = (!isDir && fileNameInfo.isValid)
+
   private val fileNameInfo = new FileNameInfoExtractor(file.getName())
 
   def season = 2
 
   val episode = fileNameInfo.episode
+
+  override def toString = fileNameInfo.toString
 }
 
 class FileNameInfoExtractor(val filename: String) {
   val serieRegexp = new Regex("""^((.+?)[ \._\-])?\[?[Ss]([0-9]+)[\.\- ]?[Ee]?([0-9]+)\]?[^\\/]*$""", "tull", "seriesname", "season", "episode")
 
-  val result = serieRegexp.findFirstMatchIn(filename).get
+  def isValid = regexpresult.isDefined
 
-  def episode = result.group("episode").toInt
+  private val regexpresult = serieRegexp.findFirstMatchIn(filename)
 
-  def season = result.group("season").toInt
+  def result = regexpresult.get
 
-  def name = result.group("seriesname").replace(".", " ")
+  def episode = {
+    if (isValid)
+      result.group("episode").toInt
+    else 0
+  }
+
+  def season = {
+    if (isValid)
+      result.group("season").toInt
+    else 0
+  }
+
+  def name = {
+    if (isValid)
+      result.group("seriesname").replace(".", " ")
+    else ""
+  }
+
+  override def toString = "" + name + " Season " + season + " Episode " + episode
 }
