@@ -1,4 +1,4 @@
-package seriesmover
+package seriesscanner
 
 import java.io.File
 
@@ -9,4 +9,6 @@ class SerieDir(val dir: File) {
   def isSeasonPack = true
 
   def season = 2
+
+  def episodes: Array[SerieFile] = dir.listFiles.map(new SerieFile(_))
 }
