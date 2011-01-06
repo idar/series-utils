@@ -70,4 +70,11 @@ class FileNameInfoExtractorTest extends JUnitSuite {
     testObj = new FileNameInfoExtractor("Tru.Calling.nfo")
     assertFalse(testObj.isValid)
   }
+
+  @Test def testNfoFileNameWithEpSyntax() {
+    testObj = new FileNameInfoExtractor("tru.calling.s01e01.ws.dvdrip.xvid-river.repack.nfo")
+    assertFalse(testObj.isVideoFile)
+    testObj = new FileNameInfoExtractor("tru.calling.s01e01.ws.dvdrip.xvid-river.repack.mkv")
+    assertTrue(testObj.isVideoFile)
+  }
 }
