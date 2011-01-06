@@ -1,26 +1,15 @@
 package seriesscanner
 
 import org.junit.{Before, Test}
-import java.net.URL
 import org.scalatest.junit.JUnitSuite
 import java.io.File
 import org.junit.Assert._
 
 class SerieFileTest extends JUnitSuite {
 
-  def truCallingSerieFileEp1 = {
-    val clazz: Class[_] = getClass
-    val url: URL = clazz.getResource("/serier/Tru.Calling.S02.DVDRip.XviD/Tru.Calling.S02E01.Perfect.Storm.WS.AC3.DVDRip.XviD-MEDiEVAL.avi")
-    val filename: String = url.getFile()
-    new SerieFile(new File(filename))
-  }
+  def truCallingSerieFileEp1 = new SerieFile(new File(getClass.getResource("/serier/Tru.Calling.S02.DVDRip.XviD/Tru.Calling.S02E01.Perfect.Storm.WS.AC3.DVDRip.XviD-MEDiEVAL.avi").getFile()))
 
-  def truCallingSerieFileEp2 = {
-    val clazz: Class[_] = getClass
-    val url: URL = clazz.getResource("/serier/Tru.Calling.S02.DVDRip.XviD/Tru.Calling.S02E02.Grace.WS.DVDRip.XviD-TVEP.avi")
-    val filename: String = url.getFile()
-    new SerieFile(new File(filename))
-  }
+  def truCallingSerieFileEp2 = new SerieFile(new File(getClass.getResource("/serier/Tru.Calling.S02.DVDRip.XviD/Tru.Calling.S02E02.Grace.WS.DVDRip.XviD-TVEP.avi").getFile()))
 
 
   private var testObj: SerieFile = _

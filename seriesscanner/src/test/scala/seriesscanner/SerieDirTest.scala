@@ -3,26 +3,14 @@ package seriesmover
 import org.junit.{Test, Before}
 import org.junit.Assert._
 import java.io.File
-import java.net.URL
-import java.lang.{Class, String}
 import org.scalatest.junit.JUnitSuite
 import seriesscanner.SerieDir
 
 class SerieDirTest extends JUnitSuite {
 
-  def truCallingSerieDir = {
-    val clazz: Class[_] = getClass
-    val url: URL = clazz.getResource("/serier/Tru.Calling.S02.DVDRip.XviD/")
-    val filename: String = url.getFile()
-    new SerieDir(new File(filename))
-  }
+  def truCallingSerieDir = new SerieDir(new File(getClass.getResource("/serier/Tru.Calling.S02.DVDRip.XviD/").getFile()))
 
-  def serieDir = {
-    val clazz: Class[_] = getClass
-    val url: URL = clazz.getResource("/serier")
-    val filename: String = url.getFile()
-    new SerieDir(new File(filename))
-  }
+  def serieDir = new SerieDir(new File(getClass.getResource("/serier").getFile()))
 
 
   private var testObj: SerieDir = _
