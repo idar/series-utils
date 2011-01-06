@@ -6,8 +6,8 @@ import collection.mutable.{ArrayOps, ListBuffer}
 class SubDirScanner(dir: File) {
 
 
-  private def files(file: File): ListBuffer[File] = {
-    val result: ListBuffer[File] = ListBuffer()
+  private def files(file: File): List[File] = {
+    var result: List[File] = List()
     val filelist: ArrayOps[File] = file.listFiles
     result ++= filelist
     for (file <- filelist; if file.isDirectory) {
