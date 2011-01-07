@@ -12,7 +12,7 @@ class SerieFile(val file: File) {
 
   private val fileNameInfo = new FileNameInfoExtractor(file.getName())
 
-  def season = 2
+  val season = fileNameInfo.season
 
   val episode = fileNameInfo.episode
 

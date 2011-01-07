@@ -10,6 +10,7 @@ class SerieFileTest extends JUnitSuite {
   def truCallingSerieFileEp1 = new SerieFile(new File(getClass.getResource("/serier/Tru.Calling.S02.DVDRip.XviD/Tru.Calling.S02E01.Perfect.Storm.WS.AC3.DVDRip.XviD-MEDiEVAL.avi").getFile()))
 
   def truCallingSerieFileEp2 = new SerieFile(new File(getClass.getResource("/serier/Tru.Calling.S02.DVDRip.XviD/Tru.Calling.S02E02.Grace.WS.DVDRip.XviD-TVEP.avi").getFile()))
+   def truCallingSerieFileEp1S01 = new SerieFile(new File(getClass.getResource("/serier/Tru.Calling.S01.WS.DVDRip.Xvid-RiVER.REPACK/Tru.Calling.S01E01.WS.DVDRip.Xvid-RiVER.REPACK.avi").getFile()))
 
 
   private var testObj: SerieFile = _
@@ -37,13 +38,11 @@ class SerieFileTest extends JUnitSuite {
   }
 
   @Test def testQuality(){
-    val t1  = truCallingSerieFileEp1;
-    val t2 = truCallingSerieFileEp2;
-    val t3 = truCallingSerieFileEp1;
-    assertTrue(t1.equals(t3))
-    assertFalse(t1.equals(t2));
-    assertEquals(t1.hashCode, t3.hashCode)
-    assertFalse(t1.hashCode == t2.hashCode)
+    assertTrue(truCallingSerieFileEp1.equals(truCallingSerieFileEp1))
+    assertFalse(truCallingSerieFileEp1.equals(truCallingSerieFileEp2));
+    assertFalse(truCallingSerieFileEp1.equals(truCallingSerieFileEp1S01))
+    assertEquals(truCallingSerieFileEp1.hashCode, truCallingSerieFileEp1.hashCode)
+    assertFalse(truCallingSerieFileEp1.hashCode == truCallingSerieFileEp2.hashCode)
   }
 }
 
