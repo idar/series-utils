@@ -1,5 +1,7 @@
 package seriesscanner
 
+import java.io.File
+
 object App {
 
   def foo(x: Array[String]) = x.foldLeft("")((a, b) => a + " " + b)
@@ -32,8 +34,17 @@ object App {
     println("move? " + candidate.file.getAbsolutePath + " to " + target.file.getAbsolutePath)
     println("Yes(y) or No(n)")
     val response = readLine
-    if ("y".equalsIgnoreCase(response)) println("moving")
+    if ("y".equalsIgnoreCase(response)) moveFile(candidate.file, target.file)
     else println("skipping...")
   }
 
+
+  def moveFile(from: File, to: File) = {
+    try {
+      from.renameTo(to)
+    }
+    catch {
+      case e: Exception => println("Problem moving file from " + from + " to " + to); println(e.getMessage)
+    }
+  }
 }
