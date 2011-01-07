@@ -28,7 +28,7 @@ class SerieFile(val file: File) {
   }
 
   def equals(o: SerieFile): Boolean = {
-    if (o.episode == episode && o.season == season && o.name == name) return true;
+    if (o.episode == episode && o.season == season && o.name.equalsIgnoreCase(name)) return true;
     false
   }
 
