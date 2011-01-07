@@ -35,6 +35,16 @@ class SerieFileTest extends JUnitSuite {
     testObj = truCallingSerieFileEp2
     assertEquals(2, testObj.episode)
   }
+
+  @Test def testQuality(){
+    val t1  = truCallingSerieFileEp1;
+    val t2 = truCallingSerieFileEp2;
+    val t3 = truCallingSerieFileEp1;
+    assertTrue(t1.equals(t3))
+    assertFalse(t1.equals(t2));
+    assertEquals(t1.hashCode, t3.hashCode)
+    assertFalse(t1.hashCode == t2.hashCode)
+  }
 }
 
 class FileNameInfoExtractorTest extends JUnitSuite {

@@ -16,7 +16,19 @@ class SerieFile(val file: File) {
 
   val episode = fileNameInfo.episode
 
+  val name = fileNameInfo.name
+
   override def toString = fileNameInfo.toString
+
+
+  override def equals(o: Any): Boolean = o match {
+    case x: SerieFile => equals(x)
+    case _ => false
+  }
+
+  def equals(o: SerieFile): Boolean = {if (o.episode == episode && o.season == season && o.name == name) return true; false}
+
+  override def hashCode = {name.hashCode + episode.hashCode + season.hashCode}
 }
 
 class FileNameInfoExtractor(val filename: String) {
@@ -58,3 +70,4 @@ object Regexp {
 
   val serieRegexp = new Regex("""^((.+?)[ \._\-])?\[?[Ss]([0-9]+)[\.\- ]?[Ee]?([0-9]+)\]?[^\\/]*$""", "tull", "seriesname", "season", "episode")
 }
+

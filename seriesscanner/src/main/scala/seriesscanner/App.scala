@@ -10,6 +10,13 @@ object App {
 
     val episodes = SerieScanner.findEpisodesInDir(args(0))
     episodes.foreach(file => println(file))
+
+    val candidates = SerieScanner.findEpisodesInSubdirs(args(1))
+    println("found episodes:")
+    candidates.foreach(file => println(file))
+
+    println("\n Listing candidates for each episode: ")
+    episodes.foreach(serie => println(candidates.filter(candidate => candidate == serie)))
   }
 
 }

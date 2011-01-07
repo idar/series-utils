@@ -9,6 +9,8 @@ object SerieScanner {
 
   def findEpisodesInDir(dir: String): Array[SerieFile] = findEpisodesInDir(new File(dir))
 
+  def findEpisodesInSubdirs(dir: String): List[SerieFile] = findEpisodesInSubdirs(new File(dir))
+
   def findEpisodesInSubdirs(dir: File): List[SerieFile] = new SubDirScanner(dir).results
 
 }
