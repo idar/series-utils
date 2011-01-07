@@ -10,7 +10,8 @@ class SerieFileTest extends JUnitSuite {
   def truCallingSerieFileEp1 = new SerieFile(new File(getClass.getResource("/serier/Tru.Calling.S02.DVDRip.XviD/Tru.Calling.S02E01.Perfect.Storm.WS.AC3.DVDRip.XviD-MEDiEVAL.avi").getFile()))
 
   def truCallingSerieFileEp2 = new SerieFile(new File(getClass.getResource("/serier/Tru.Calling.S02.DVDRip.XviD/Tru.Calling.S02E02.Grace.WS.DVDRip.XviD-TVEP.avi").getFile()))
-   def truCallingSerieFileEp1S01 = new SerieFile(new File(getClass.getResource("/serier/Tru.Calling.S01.WS.DVDRip.Xvid-RiVER.REPACK/Tru.Calling.S01E01.WS.DVDRip.Xvid-RiVER.REPACK.avi").getFile()))
+
+  def truCallingSerieFileEp1S01 = new SerieFile(new File(getClass.getResource("/serier/Tru.Calling.S01.WS.DVDRip.Xvid-RiVER.REPACK/Tru.Calling.S01E01.WS.DVDRip.Xvid-RiVER.REPACK.avi").getFile()))
 
 
   private var testObj: SerieFile = _
@@ -37,7 +38,7 @@ class SerieFileTest extends JUnitSuite {
     assertEquals(2, testObj.episode)
   }
 
-  @Test def testQuality(){
+  @Test def testQuality() {
     assertTrue(truCallingSerieFileEp1.equals(truCallingSerieFileEp1))
     assertFalse(truCallingSerieFileEp1.equals(truCallingSerieFileEp2));
     assertFalse(truCallingSerieFileEp1.equals(truCallingSerieFileEp1S01))
@@ -74,5 +75,11 @@ class FileNameInfoExtractorTest extends JUnitSuite {
     assertFalse(testObj.isVideoFile)
     testObj = new FileNameInfoExtractor("tru.calling.s01e01.ws.dvdrip.xvid-river.repack.mkv")
     assertTrue(testObj.isVideoFile)
+  }
+
+  @Test def testS03E01divx() {
+    testObj = new FileNameInfoExtractor("S03E01.divx")
+    println(testObj.episode + testObj.season + testObj.name)
+    assertFalse("should be unvalid", testObj.isValid)
   }
 }

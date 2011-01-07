@@ -1,7 +1,7 @@
 package seriesscanner
 
 import java.io.File
-import collection.mutable.{ArrayOps, ListBuffer}
+import collection.mutable.ArrayOps
 
 class SubDirScanner(dir: File) {
 

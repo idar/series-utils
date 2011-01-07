@@ -26,34 +26,46 @@ class SerieFile(val file: File) {
     case _ => false
   }
 
-  def equals(o: SerieFile): Boolean = {if (o.episode == episode && o.season == season && o.name == name) return true; false}
+  def equals(o: SerieFile): Boolean = {
+    if (o.episode == episode && o.season == season && o.name == name) return true;
+    false
+  }
 
-  override def hashCode = {name.hashCode + episode.hashCode + season.hashCode}
+  override def hashCode = {
+    name.hashCode + episode.hashCode + season.hashCode
+  }
 }
 
 class FileNameInfoExtractor(val filename: String) {
 
-  def isValid = regexpresult.isDefined
+  def isValid = regexpresult.isDefined && episoderes != null && seasonres != null && seriesnameres != null
 
-  private val regexpresult = Regexp.serieRegexp.findFirstMatchIn(filename)
+  private
+  val regexpresult = Regexp.serieRegexp.findFirstMatchIn(filename)
 
   def result = regexpresult.get
 
+  def episoderes: String = result.group("episode")
+
+  def seasonres: String = result.group("season")
+
+  def seriesnameres = result.group("seriesname")
+
   def episode = {
     if (isValid)
-      result.group("episode").toInt
+      episoderes.toInt
     else 0
   }
 
   def season = {
     if (isValid)
-      result.group("season").toInt
+      seasonres.toInt
     else 0
   }
 
   def name = {
     if (isValid)
-      result.group("seriesname").replace(".", " ")
+      seriesnameres.replace(".", " ")
     else ""
   }
 
