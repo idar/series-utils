@@ -3,6 +3,7 @@ package seriesscanner
 import java.io.File
 import util.matching.Regex
 import java.lang.String
+import util.matching.Regex.Match
 
 class SerieFile(val file: File) {
 
@@ -38,18 +39,17 @@ class SerieFile(val file: File) {
 
 class FileNameInfoExtractor(val filename: String) {
 
-  def isValid = regexpresult.isDefined && episoderes != null && seasonres != null && seriesnameres != null
+  def isValid = option.isDefined && episoderes != null && seasonres != null && seriesnameres != null
 
-  private
-  val regexpresult = Regexp.serieRegexp.findFirstMatchIn(filename)
+  private val option = Regexp.findSerieREResult(filename)
 
-  def result = regexpresult.get
+  private def result = option.get
 
-  def episoderes: String = result.group("episode")
+  private def episoderes: String = result.group("episode")
 
-  def seasonres: String = result.group("season")
+  private def seasonres: String = result.group("season")
 
-  def seriesnameres = result.group("seriesname")
+  private def seriesnameres = result.group("seriesname")
 
   def episode = {
     if (isValid)
@@ -79,7 +79,23 @@ class FileNameInfoExtractor(val filename: String) {
 
 object Regexp {
   val videoRegexp = """^.*[?i\.avi|?i\.mkv]$""".r
+  private val name: String = "seriesname"
+  private val season: String = "season"
+  private val episode: String = "episode"
+  private val REs = Array(new Regex("""^((.+?)[ \._\-])?\[?[Ss]([0-9]+)[\.\- ]?[Ee]?([0-9]+)\]?[^\\/]*$""", "tull", name, season, episode),
+    new Regex("""^(.+)[ \._\-]([0-9]{1})([0-9]{2})[\._ -][^\\/]*$""", name, season, episode))
 
-  val serieRegexp = new Regex("""^((.+?)[ \._\-])?\[?[Ss]([0-9]+)[\.\- ]?[Ee]?([0-9]+)\]?[^\\/]*$""", "tull", "seriesname", "season", "episode")
+  def findSerieREResult(filename: String) = {
+    val possiblematches = REs.map(re => re.findFirstMatchIn(filename)).filter(option => isOK(option)).map(option => option.get)
+    if (possiblematches.length != 1) None
+    else Some(possiblematches(0))
+  }
+
+  def isOK(rematch: Option[Match]): Boolean = {
+    if (!rematch.isDefined) return false
+    for (groupname <- rematch.get.groupNames) {
+      if (rematch.get.group(groupname) == null) return false
+    }
+    true
+  }
 }
-
