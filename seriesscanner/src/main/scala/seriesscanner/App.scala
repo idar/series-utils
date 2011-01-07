@@ -25,7 +25,30 @@ object App {
     candidates.length match {
       case 0 => println("No candidates for " + target + ".\nSkipping file")
       case 1 => move(target, candidates(0))
-      case _ => println("Multiple candidates, need to be implemented")
+      case _ => chooseCandidate(target, candidates)
+    }
+
+  }
+
+  def chooseCandidate(target: SerieFile, candidates: List[SerieFile]): Unit = {
+    println("\nMultiplecandidates for " + target)
+    println(target.file.getAbsolutePath)
+    println("\nCandidates:")
+    for (i <- 0 until candidates.length) {
+      println("(" + i + ") " + candidates(i).file.getAbsolutePath)
+    }
+    println("Please choose a number or No(n)")
+    val input = readLine
+    val inputnumber = toIntOr(input, -1)
+    if (candidates.indices.contains(inputnumber)) move(target, candidates(inputnumber))
+    else println("\nSkipping file...")
+  }
+
+  def toIntOr(input: String, othervalue: Int): Int = {
+    try {
+      input.toInt
+    } catch {
+      case e: Exception => othervalue
     }
 
   }
