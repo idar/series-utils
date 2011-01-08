@@ -1,7 +1,8 @@
-package seriesscanner
+package seriesmover
 
 import java.io.File
-import collection.mutable.{Buffer, ListBuffer}
+import collection.mutable.Buffer
+import seriesscanner.{SerieFile, SerieScanner}
 
 object App {
 

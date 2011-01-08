@@ -6,9 +6,8 @@
         <artifactId>series-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
     <groupId>seriesutils</groupId>
-    <artifactId>seriesscanner</artifactId>
+    <artifactId>seriesmover</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>${project.artifactId}</name>
     <description>My wonderfull scala app</description>
@@ -50,6 +49,11 @@
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
             <version>${scala.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>seriesutils</groupId>
+            <artifactId>seriesscanner</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <!-- Test -->
@@ -110,6 +114,19 @@
                         <include>**/*Test.*</include>
                         <include>**/*Suite.*</include>
                     </includes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>seriesmover.App</mainClass>
+                        </manifest>
+                    </archive>
                 </configuration>
             </plugin>
             <plugin>
