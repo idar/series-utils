@@ -5,7 +5,7 @@ import util.matching.Regex
 import java.lang.String
 import util.matching.Regex.Match
 
-class SerieFile(val file: File) {
+class SerieFile(val file: File) extends Ordered[SerieFile] {
 
   def isDir = file isDirectory
 
@@ -35,6 +35,14 @@ class SerieFile(val file: File) {
   override def hashCode = {
     name.hashCode + episode.hashCode + season.hashCode
   }
+
+  def compare(that: SerieFile): Int = {
+    if (!name.equalsIgnoreCase(that.name)) name.compareToIgnoreCase(that.name)
+    else if (season != that.season) season.compare(that.season)
+    else if (episode != that.episode) episode.compare(that.episode)
+    else 0
+  }
+
 }
 
 class FileNameInfoExtractor(val filename: String) {

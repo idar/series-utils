@@ -13,7 +13,7 @@ object App {
     println("concat arguments = " + foo(args))
     checkArgs(args)
 
-    val episodes = SerieScanner.findEpisodesInDir(args(0))
+    val episodes = SerieScanner.findEpisodesInDir(args(0)).sorted
     episodes.foreach(file => println(file))
 
     val candidates = SerieScanner.findEpisodesInSubdirs(args(1))

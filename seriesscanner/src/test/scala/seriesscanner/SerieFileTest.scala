@@ -45,6 +45,13 @@ class SerieFileTest extends JUnitSuite {
     assertEquals(truCallingSerieFileEp1.hashCode, truCallingSerieFileEp1.hashCode)
     assertFalse(truCallingSerieFileEp1.hashCode == truCallingSerieFileEp2.hashCode)
   }
+
+  @Test def testSort() {
+    val test = Array(truCallingSerieFileEp1, truCallingSerieFileEp2, truCallingSerieFileEp1S01).sorted
+    assertEquals(truCallingSerieFileEp1S01, test(0))
+    assertEquals(truCallingSerieFileEp1, test(1))
+    assertEquals(truCallingSerieFileEp2, test(2))
+  }
 }
 
 class FileNameInfoExtractorTest extends JUnitSuite {
