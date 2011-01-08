@@ -27,6 +27,7 @@ object App {
   def checkArgs(args: Array[String]) {
     if (args.length < 2) {
       println("Need source and target dir");
+      println("java -jar seriesmover-*.jar <target> <source>")
       exit(1)
     }
     if (!new File(args(0)).isDirectory) {
