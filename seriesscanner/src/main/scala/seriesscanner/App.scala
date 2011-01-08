@@ -1,6 +1,7 @@
 package seriesscanner
 
 import java.io.File
+import collection.mutable.{Buffer, ListBuffer}
 
 object App {
 
@@ -40,8 +41,51 @@ object App {
     println("Please choose a number or No(n)")
     val input = readLine
     val inputnumber = toIntOr(input, -1)
-    if (candidates.indices.contains(inputnumber)) move(target, candidates(inputnumber))
+    if (candidates.indices.contains(inputnumber)) {
+      move(target, candidates(inputnumber))
+      val remaining = candidates.toBuffer
+      remaining.remove(inputnumber)
+      handleRemaining(remaining)
+    }
     else println("\nSkipping file...")
+  }
+
+  def handleRemaining(remainingCandidates: Buffer[SerieFile]): Unit = {
+    println("Remaining " + remainingCandidates.length + " candidates")
+    for (i <- 0 until remainingCandidates.length) {
+      println("(" + i + ") " + remainingCandidates(i).file.getAbsolutePath)
+    }
+    println("Delete all(All), or select number or No(no)")
+    val input = readLine
+    val inputnumber = toIntOr(input, -1)
+    if ("all".equalsIgnoreCase(input)) deleteAll(remainingCandidates)
+    else if (remainingCandidates.indices.contains(inputnumber)) deleteOne(remainingCandidates, inputnumber)
+    else println("Continuing without deleting")
+  }
+
+  def deleteOne(remainingCandidates: Buffer[SerieFile], num: Int): Unit = {
+    printf("Realy delete file " + remainingCandidates(num).file.getAbsolutePath + " ?")
+    printf("Yes or No")
+    val input = readLine
+    if ("yes".equalsIgnoreCase(input)) {
+      if (remainingCandidates(num).file.delete) {
+        remainingCandidates.remove(num)
+        if (remainingCandidates.length > 0)
+          handleRemaining(remainingCandidates)
+      }
+    }
+  }
+
+  def deleteAll(remainingCandidates: Buffer[SerieFile]): Unit = {
+    printf("Remaining ")
+    for (i <- 0 until remainingCandidates.length) {
+      println(remainingCandidates(i).file.getAbsolutePath)
+    }
+    printf("Realy delete all files? Yes or No")
+    val input = readLine
+    if ("yes".equalsIgnoreCase(input)) {
+      remainingCandidates.foreach(serie => serie.file.delete)
+    }
   }
 
   def toIntOr(input: String, othervalue: Int): Int = {
