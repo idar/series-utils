@@ -91,9 +91,10 @@ class FileNameInfoExtractor(val filename: String) {
     else ""
   }
 
-  def isVideoFile: Boolean = filename match {
-    case Regexp.videoRegexp() => return true
-    case _ => return false
+  def isVideoFile: Boolean = {
+    val res =  Regexp.videoRegexp.findFirstMatchIn(filename)
+    if(res.isEmpty) false
+    else true
   }
 
   override def toString = "" + name + " Season " + season + " Episode " + episode
@@ -101,7 +102,7 @@ class FileNameInfoExtractor(val filename: String) {
 
 object Regexp {
   val wordRE = """(\w)""".r
-  val videoRegexp = """^.*[?i\.avi|?i\.mkv]$""".r
+  val videoRegexp = """(?i)^.*(\.avi|\.mkv)$""".r
   private val name: String = "seriesname"
   private val season: String = "season"
   private val episode: String = "episode"

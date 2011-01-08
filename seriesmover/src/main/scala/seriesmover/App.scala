@@ -49,11 +49,11 @@ object App {
   }
 
   def chooseCandidate(target: SerieFile, candidates: List[SerieFile]): Unit = {
-    println("\nMultiplecandidates for \"" + target + "\"")
+    println("\nMultiplecandidates for \"" + target + "\"" + " size: " + target.file.length)
     println(target.file.getAbsolutePath)
     println("\nCandidates:")
     for (i <- 0 until candidates.length) {
-      println("(" + i + ") " + candidates(i).file.getAbsolutePath)
+      println("(" + i + ") " + candidates(i).file.getAbsolutePath + " size: " + candidates(i).file.length)
     }
     println("Please choose a number or No(no)")
     val input = readLine
@@ -81,8 +81,8 @@ object App {
   }
 
   def deleteOne(remainingCandidates: Buffer[SerieFile], num: Int): Unit = {
-    printf("Realy delete file " + remainingCandidates(num).file.getAbsolutePath + " ?")
-    printf("Yes or No")
+    println("Realy delete file\n" + remainingCandidates(num).file.getAbsolutePath + " ?")
+    println("Yes or No")
     val input = readLine
     if ("yes".equalsIgnoreCase(input) || "y".equalsIgnoreCase(input)) {
       if (deleteFile(remainingCandidates(num).file)) {
@@ -124,7 +124,10 @@ object App {
 
   def move(target: SerieFile, candidate: SerieFile): Unit = {
     println("\n\nEpisode \"" + target + "\"")
-    println("\n move ? " + candidate.file.getAbsolutePath + " to " + target.file.getAbsolutePath)
+    println("\n move ? ")
+    println( candidate.file.getAbsolutePath + " size: " + candidate.file.length)
+    println("to")
+    println(target.file.getAbsolutePath + " size: " + target.file.length)
     println("Yes(y) or No(n)")
     val response = readLine
     if ("y".equalsIgnoreCase(response)) moveFile(candidate.file, target.file)

@@ -92,7 +92,6 @@ class FileNameInfoExtractorTest extends JUnitSuite {
 
   @Test def testS03E01divx() {
     testObj = new FileNameInfoExtractor("S03E01.divx")
-    println(testObj.episode + testObj.season + testObj.name)
     assertFalse("should be unvalid", testObj.isValid)
   }
 
@@ -110,6 +109,11 @@ class FileNameInfoExtractorTest extends JUnitSuite {
     assertEquals(1, testObj.episode)
     assertEquals(4, testObj.season)
     assertEquals("dexter", testObj.name)
+  }
+
+  @Test def testSfvfile {
+    testObj = new FileNameInfoExtractor("one.tree.hill.s07e08.hdtv.xvid-xii.sfv")
+    assertFalse(testObj.isVideoFile)
   }
 
 
