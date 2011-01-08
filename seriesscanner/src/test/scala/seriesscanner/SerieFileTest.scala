@@ -4,6 +4,7 @@ import org.junit.{Before, Test}
 import org.scalatest.junit.JUnitSuite
 import java.io.File
 import org.junit.Assert._
+
 class SerieFileTest extends JUnitSuite {
 
   def truCallingSerieFileEp1 = new SerieFile(new File(getClass.getResource("/serier/Tru.Calling.S02.DVDRip.XviD/Tru.Calling.S02E01.Perfect.Storm.WS.AC3.DVDRip.XviD-MEDiEVAL.avi").getFile()))
@@ -88,6 +89,14 @@ class FileNameInfoExtractorTest extends JUnitSuite {
     assertEquals(3, testObj.episode)
     assertEquals(3, testObj.season)
     assertEquals("leverage", testObj.name)
+  }
+
+  @Test def testdexter_0401_hdtv_xvid_notv_avi {
+    testObj = new FileNameInfoExtractor("dexter.0401.hdtv.xvid-notv.avi")
+    assertTrue(testObj.isValid)
+    assertEquals(1, testObj.episode)
+    assertEquals(4, testObj.season)
+    assertEquals("dexter", testObj.name)
   }
 
 }

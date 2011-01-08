@@ -83,7 +83,9 @@ object Regexp {
   private val season: String = "season"
   private val episode: String = "episode"
   private val REs = Array(new Regex("""^((.+?)[ \._\-])?\[?[Ss]([0-9]+)[\.\- ]?[Ee]?([0-9]+)\]?[^\\/]*$""", "tull", name, season, episode),
-    new Regex("""^(.+)[ \._\-]([0-9]{1})([0-9]{2})[\._ -][^\\/]*$""", name, season, episode))
+    new Regex("""^(.+)[ \._\-]([0-9]{1})([0-9]{2})[\._ -][^\\/]*$""", name, season, episode),
+    new Regex("""^(.+)[ \._\-]([0-9]{2})([0-9]{2,3})[\._ -][^\\/]*$""", name, season, episode)
+  )
 
   def findSerieREResult(filename: String) = {
     val possiblematches = REs.map(re => re.findFirstMatchIn(filename)).filter(option => isOK(option)).map(option => option.get)
