@@ -28,8 +28,22 @@ class SerieFile(val file: File) extends Ordered[SerieFile] {
   }
 
   def equals(o: SerieFile): Boolean = {
-    if (o.episode == episode && o.season == season && o.name.equalsIgnoreCase(name)) return true;
+    if (o.episode == episode && o.season == season && almostEquals(o.name, name)) return true;
     false
+  }
+
+  def almostEquals(s1: String, s2: String): Boolean = {
+    if (s1.equalsIgnoreCase(s2)) return true;
+    val s1words = s1.split(" ")
+    val s2words = s2.split(" ")
+    if (s1words.isEmpty || s2words.isEmpty) return false;
+    if (!(-1 to 1 contains (s1words.length - s2words.length))) return false;
+    val min = math.min(s1words.length, s2words.length)
+
+    for (i <- 0 until min) {
+      if (!s1words(i).equalsIgnoreCase(s2words(i))) return false;
+    }
+    return true;
   }
 
   override def hashCode = {
@@ -86,6 +100,7 @@ class FileNameInfoExtractor(val filename: String) {
 }
 
 object Regexp {
+  val wordRE = """(\w)""".r
   val videoRegexp = """^.*[?i\.avi|?i\.mkv]$""".r
   private val name: String = "seriesname"
   private val season: String = "season"

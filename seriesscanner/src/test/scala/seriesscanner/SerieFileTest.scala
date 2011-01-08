@@ -52,6 +52,12 @@ class SerieFileTest extends JUnitSuite {
     assertEquals(truCallingSerieFileEp1, test(1))
     assertEquals(truCallingSerieFileEp2, test(2))
   }
+
+  @Test def testAlmostIdenticalName() {
+    val testfile1 = new SerieFile(new File(getClass.getResource("/testfiles/defying.gravity.us.s01e04.hdtv.xvid-2hd.avi").getFile()))
+    val testfile2 = new SerieFile(new File(getClass.getResource("/testfiles/defying.gravity.s01e04.hdtv.xvid-2hd.avi").getFile()))
+    assertTrue(testfile1 == testfile2)
+  }
 }
 
 class FileNameInfoExtractorTest extends JUnitSuite {
@@ -105,5 +111,6 @@ class FileNameInfoExtractorTest extends JUnitSuite {
     assertEquals(4, testObj.season)
     assertEquals("dexter", testObj.name)
   }
+
 
 }

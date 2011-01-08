@@ -26,13 +26,16 @@ object App {
 
   def checkArgs(args: Array[String]) {
     if (args.length < 2) {
-      println("Need source and target dir"); exit(1)
+      println("Need source and target dir");
+      exit(1)
     }
     if (!new File(args(0)).isDirectory) {
-      println(args(0) + " is not a dir."); exit(2)
+      println(args(0) + " is not a dir.");
+      exit(2)
     }
     if (!new File(args(1)).isDirectory) {
-      println(args(1) + " is not a dir."); exit(3)
+      println(args(1) + " is not a dir.");
+      exit(3)
     }
   }
 
@@ -81,8 +84,8 @@ object App {
     printf("Realy delete file " + remainingCandidates(num).file.getAbsolutePath + " ?")
     printf("Yes or No")
     val input = readLine
-    if ("yes".equalsIgnoreCase(input)) {
-      if (remainingCandidates(num).file.delete) {
+    if ("yes".equalsIgnoreCase(input) || "y".equalsIgnoreCase(input)) {
+      if (deleteFile(remainingCandidates(num).file)) {
         remainingCandidates.remove(num)
         if (remainingCandidates.length > 0)
           handleRemaining(remainingCandidates)
@@ -97,9 +100,17 @@ object App {
     }
     printf("Realy delete all files? Yes or No\n")
     val input = readLine
-    if ("yes".equalsIgnoreCase(input)) {
-      remainingCandidates.foreach(serie => serie.file.delete)
-    }
+    if ("yes".equalsIgnoreCase(input) || "y".equalsIgnoreCase(input)) {
+      remainingCandidates.foreach(serie => deleteFile(serie.file))
+    } else println("Not deleting files. Continuing...")
+  }
+
+  def deleteFile(file: File): Boolean = {
+    print("Deleting " + file.getAbsoluteFile)
+    val status = file.delete
+    if (status) println(" Success")
+    else println(" failure")
+    return status
   }
 
   def toIntOr(input: String, othervalue: Int): Int = {
