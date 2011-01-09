@@ -92,8 +92,8 @@ class FileNameInfoExtractor(val filename: String) {
   }
 
   def isVideoFile: Boolean = {
-    val res =  Regexp.videoRegexp.findFirstMatchIn(filename)
-    if(res.isEmpty) false
+    val res = Regexp.videoRegexp.findFirstMatchIn(filename)
+    if (res.isEmpty) false
     else true
   }
 
@@ -102,18 +102,19 @@ class FileNameInfoExtractor(val filename: String) {
 
 object Regexp {
   val wordRE = """(\w)""".r
-  val videoRegexp = """(?i)^.*(\.avi|\.mkv)$""".r
+  val videoRegexp = """(?i)^.*(\.avi|\.mkv|\.mp4)$""".r
   private val name: String = "seriesname"
   private val season: String = "season"
   private val episode: String = "episode"
-  private val REs = Array(new Regex("""^((.+?)[ \._\-])?\[?[Ss]([0-9]+)[\.\- ]?[Ee]?([0-9]+)\]?[^\\/]*$""", "tull", name, season, episode),
-    new Regex("""^(.+)[ \._\-]([0-9]{1})([0-9]{2})[\._ -][^\\/]*$""", name, season, episode),
-    new Regex("""^(.+)[ \._\-]([0-9]{2})([0-9]{2,3})[\._ -][^\\/]*$""", name, season, episode)
+  private val REs = Array(new Regex("""^((.+?)[ \._\-])?\[?[Ss]([0-9]+)[\.\- ]?[Ee]?([0-9]+)\]?[^\\/]*$""", "tull", name, season, episode), //scrubs.s01e01.avi
+    new Regex("""^(.+)[ \._\-]([0-9]{1})([0-9]{2})[\._ -][^\\/]*$""", name, season, episode), //leverage.303.hdtv.xvid-sys.avi
+    new Regex("""^(.+)[ \._\-]([0-9]{2})([0-9]{2,3})[\._ -][^\\/]*$""", name, season, episode) //dexter.0401.hdtv.xvid-notv.avi
+    , new Regex("""^(.+?)[ ]?[ \._\-][ ]?[Ss]([0-9]+)[\.\- ]?[Ee]?[ ]?([0-9]+)[^\\/]*$""", name, season, episode) //Arrested Development - S2 E 02 - Dummy Ep Name.blah
   )
 
   def findSerieREResult(filename: String) = {
     val possiblematches = REs.map(re => re.findFirstMatchIn(filename)).filter(option => isOK(option)).map(option => option.get)
-    if (possiblematches.length != 1) None
+    if (possiblematches.length < 1) None
     else Some(possiblematches(0))
   }
 
