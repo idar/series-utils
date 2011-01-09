@@ -106,10 +106,11 @@ object Regexp {
   private val name: String = "seriesname"
   private val season: String = "season"
   private val episode: String = "episode"
-  private val REs = Array(new Regex("""^((.+?)[ \._\-])?\[?[Ss]([0-9]+)[\.\- ]?[Ee]?([0-9]+)\]?[^\\/]*$""", "tull", name, season, episode), //scrubs.s01e01.avi
-    new Regex("""^(.+)[ \._\-]([0-9]{1})([0-9]{2})[\._ -][^\\/]*$""", name, season, episode), //leverage.303.hdtv.xvid-sys.avi
-    new Regex("""^(.+)[ \._\-]([0-9]{2})([0-9]{2,3})[\._ -][^\\/]*$""", name, season, episode) //dexter.0401.hdtv.xvid-notv.avi
+  private val REs = Array(new Regex("""^((.+?)[ \._\-])?\[?[Ss]([0-9]+)[\.\- ]?[Ee]?([0-9]+)\]?[^\\/]*$""", "tull", name, season, episode) //scrubs.s01e01.avi
+    , new Regex("""^(.+)[ \._\-]([0-9]{1})([0-9]{2})[\._ -][^\\/]*$""", name, season, episode) //leverage.303.hdtv.xvid-sys.avi
+    , new Regex("""^(.+)[ \._\-]([0-9]{2})([0-9]{2,3})[\._ -][^\\/]*$""", name, season, episode) //dexter.0401.hdtv.xvid-notv.avi
     , new Regex("""^(.+?)[ ]?[ \._\-][ ]?[Ss]([0-9]+)[\.\- ]?[Ee]?[ ]?([0-9]+)[^\\/]*$""", name, season, episode) //Arrested Development - S2 E 02 - Dummy Ep Name.blah
+    , new Regex("""^((.+?)[ \._\-])?\[?([0-9]+)[xX]([0-9]+)\]?[^\\/]*$""", "tull", name, season, episode) // Scrubs 1x01-720p.avi
   )
 
   def findSerieREResult(filename: String) = {
