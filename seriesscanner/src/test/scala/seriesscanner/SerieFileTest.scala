@@ -64,20 +64,6 @@ class FileNameInfoExtractorTest extends JUnitSuite {
 
   private var testObj: FileNameInfoExtractor = _
 
-  @Test def testEpisodeS02E01() {
-    testObj = new FileNameInfoExtractor("Tru.Calling.S02E01.Perfect.Storm.WS.AC3.DVDRip.XviD-MEDiEVAL.avi")
-    assertEquals(2, testObj.season)
-    assertEquals(1, testObj.episode)
-    assertEquals("Tru Calling", testObj.name)
-  }
-
-  @Test def testEpisodeS02E02() {
-    testObj = new FileNameInfoExtractor("Tru.Calling.S02E02.Grace.WS.DVDRip.XviD-TVEP.avi")
-    assertEquals(2, testObj.season)
-    assertEquals(2, testObj.episode)
-    assertEquals("Tru Calling", testObj.name)
-  }
-
   @Test def testInvalidFilename() {
     testObj = new FileNameInfoExtractor("Tru.Calling.nfo")
     assertFalse(testObj.isValid)
@@ -95,26 +81,27 @@ class FileNameInfoExtractorTest extends JUnitSuite {
     assertFalse("should be unvalid", testObj.isValid)
   }
 
-  @Test def testleverage_303_hdtv_xvid_sys_avi() {
-    testObj = new FileNameInfoExtractor("leverage.303.hdtv.xvid-sys.avi")
-    assertTrue(testObj.isValid)
-    assertEquals(3, testObj.episode)
-    assertEquals(3, testObj.season)
-    assertEquals("leverage", testObj.name)
-  }
-
-  @Test def testdexter_0401_hdtv_xvid_notv_avi {
-    testObj = new FileNameInfoExtractor("dexter.0401.hdtv.xvid-notv.avi")
-    assertTrue(testObj.isValid)
-    assertEquals(1, testObj.episode)
-    assertEquals(4, testObj.season)
-    assertEquals("dexter", testObj.name)
-  }
-
   @Test def testSfvfile {
     testObj = new FileNameInfoExtractor("one.tree.hill.s07e08.hdtv.xvid-xii.sfv")
     assertFalse(testObj.isVideoFile)
   }
 
+  @Test def testFileNamesWithCorrectResult {
+    val test = testFilenameInfoExtractor(_)
+    test(Tuple4("scrubs.s01e01.avi", "scrubs", 1, 1))
+    test(Tuple4("dexter.0401.hdtv.xvid-notv.avi", "dexter", 4, 1))
+    test(Tuple4("leverage.303.hdtv.xvid-sys.avi", "leverage", 3, 3))
+    test(Tuple4("Tru.Calling.S02E02.Grace.WS.DVDRip.XviD-TVEP.avi", "Tru Calling", 2, 2))
+    test(Tuple4("Tru.Calling.S02E01.Perfect.Storm.WS.AC3.DVDRip.XviD-MEDiEVAL.avi", "Tru Calling", 2, 1))
+
+  }
+
+  def testFilenameInfoExtractor(testParameters: Tuple4[String, String, Int, Int]): Unit = {
+    testObj = new FileNameInfoExtractor(testParameters._1);
+    assertTrue("Not valid with " + testParameters, testObj.isValid)
+    assertEquals(testParameters._2, testObj.name)
+    assertEquals(testParameters._3, testObj.season)
+    assertEquals(testParameters._4, testObj.episode)
+  }
 
 }
