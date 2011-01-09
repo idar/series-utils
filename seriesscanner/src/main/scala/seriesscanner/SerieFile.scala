@@ -112,6 +112,7 @@ object Regexp {
     , new Regex("""^(.+)[ \._\-]([0-9]{2})([0-9]{2,3})[\._ -][^\\/]*$""", name, season, episode) //dexter.0401.hdtv.xvid-notv.avi
     , new Regex("""^(.+?)[ ]?[ \._\-][ ]?[Ss]([0-9]+)[\.\- ]?[Ee]?[ ]?([0-9]+)[^\\/]*$""", name, season, episode) //Arrested Development - S2 E 02 - Dummy Ep Name.blah
     , new Regex("""^((.+?)[ \._\-])?\[?([0-9]+)[xX]([0-9]+)\]?[^\\/]*$""", "tull", name, season, episode) // Scrubs 1x01-720p.avi
+    , new Regex("""^(.+?)[ \._\-]\[?([0-9]+)[xX]([0-9]+)\][^\\/]*$""", name, season, episode) //Scrubs - [04X19] - My Best Laid Plans
   )
 
   def findSerieREResult(filename: String) = {
