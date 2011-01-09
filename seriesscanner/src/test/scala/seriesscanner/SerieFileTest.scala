@@ -98,6 +98,7 @@ class FileNameInfoExtractorTest extends JUnitSuite {
     test(Tuple4("Arrested Development - S2 E 02 - Dummy Ep Name.blah", "Arrested Development", 2, 2))
     test(Tuple4("Scrubs 1x01-720p.avi", "Scrubs", 1, 1))
     test(Tuple4("Scrubs - [s01e01].avi", "Scrubs", 1, 1))
+    test(Tuple4("Six.Feet.Under.S0201.test_testing-yay", "Six Feet Under", 2, 1))
   }
 
   def testFilenameInfoExtractor(testParameters: Tuple4[String, String, Int, Int]): Unit = {
