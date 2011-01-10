@@ -87,7 +87,7 @@ class FileNameInfoExtractor(val filename: String) {
 
   def name = {
     if (isValid)
-      seriesnameres.replace(".", " ").replace("-", " ").trim
+      seriesnameres.replaceFirst("^aaf-", "").replace(".", " ").replace("-", " ").trim
     else ""
   }
 
