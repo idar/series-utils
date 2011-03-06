@@ -1,0 +1,15 @@
+#!/bin/bash
+lib=/usr/share/series-utils/lib/
+jars=$(ls -b $lib)
+cp=""
+for i in $jars
+do
+    if [ -z $classpath ]
+    then
+        cp="$lib$i"
+    else
+        cp="$cp:$lib$i"
+    fi
+done
+export CLASSPATH=$cp:/usr/share/series-utils/fillseasonpack.jar
+java seriesmover.App $@

@@ -9,6 +9,6 @@
     <name>series-parent</name>
     <modules>
         <module>seriesscanner</module>
-        <module>seriesmover</module>
+        <module>fillseasonpack</module>
     </modules>
 </project>

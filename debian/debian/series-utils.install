@@ -1,0 +1,3 @@
+fillseasonpack.jar usr/share/series-utils
+lib/* usr/share/series-utils/lib
+bin/* usr/bin

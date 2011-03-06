@@ -42,4 +42,15 @@ build.log
 #SHITTY output not in target directory
 build.log
 
-
+*.deb
+*.build
+*.changes
+debian/lib
+debian/*.jar
+debian/build-stamp
+debian/configure-stamp
+debian/debian/files
+debian/debian/series-utils.debhelper.log
+debian/debian/series-utils.substvars
+debian/debian/series-utils/
+debian/bin/

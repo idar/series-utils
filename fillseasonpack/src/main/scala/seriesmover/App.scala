@@ -9,34 +9,32 @@ object App {
   def foo(x: Array[String]) = x.foldLeft("")((a, b) => a + " " + b)
 
   def main(args: Array[String]) {
-    println("Hello World!")
-    println("concat arguments = " + foo(args))
     checkArgs(args)
 
-    val episodes = SerieScanner.findEpisodesInDir(args(0)).sorted
+    val episodes = SerieScanner.findEpisodesInDir(args(args.length-1)).sorted
     episodes.foreach(file => println(file))
-
-    val candidates = SerieScanner.findEpisodesInSubdirs(args(1))
-    /*println("found episodes:")
-    candidates.foreach(file => println(file))*/
-
+    val candidates_ = SerieScanner.findEpisodesInSubdirs(args(0))
+    val candidates = candidates_.filterNot(candidate => isInTarget(candidate,episodes));
     println("\n Listing candidates for each episode: ")
     episodes.foreach(serie => move(serie, candidates.filter(candidate => candidate == serie)))
+  }
+
+  def isInTarget(candidate: SerieFile, episodes:Array[SerieFile]) : Boolean = {
+    episodes.foreach(sf => if(sf.file.equals(candidate.file)) return true)
+    return false;
   }
 
   def checkArgs(args: Array[String]) {
     if (args.length < 2) {
       println("Need source and target dir");
-      println("java -jar seriesmover-*.jar <target> <source>")
+      println("fillseasonpack <sources> <target>")
       exit(1)
     }
-    if (!new File(args(0)).isDirectory) {
-      println(args(0) + " is not a dir.");
-      exit(2)
-    }
-    if (!new File(args(1)).isDirectory) {
-      println(args(1) + " is not a dir.");
-      exit(3)
+    for (arg <- args) {
+      if (!new File(arg).isDirectory) {
+        println(arg + " is not a dir.");
+        exit(2)
+      }
     }
   }
 
@@ -126,7 +124,7 @@ object App {
   def move(target: SerieFile, candidate: SerieFile): Unit = {
     println("\n\nEpisode \"" + target + "\"")
     println("\n move ? ")
-    println( candidate.file.getAbsolutePath + " size: " + candidate.file.length)
+    println(candidate.file.getAbsolutePath + " size: " + candidate.file.length)
     println("to")
     println(target.file.getAbsolutePath + " size: " + target.file.length)
     println("Yes(y) or No(n)")

@@ -1,0 +1,12 @@
+Source: series-utils
+Section: utils
+Priority: extra
+Maintainer: Idar Borlaug <idar.borlaug@gmail.com>
+Build-Depends: debhelper (>= 5)
+Standards-Version: 3.7.2
+Homepage: http://github.com/idar/series-utils
+
+Package: series-utils
+Architecture: all
+Depends: java2-runtime
+Description: Description

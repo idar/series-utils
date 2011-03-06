@@ -7,7 +7,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <groupId>seriesutils</groupId>
-    <artifactId>seriesmover</artifactId>
+    <artifactId>fillseasonpack</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>${project.artifactId}</name>
     <description>My wonderfull scala app</description>
@@ -78,6 +78,7 @@
     </dependencies>
 
     <build>
+        <finalName>${project.name}</finalName>
         <sourceDirectory>src/main/scala</sourceDirectory>
         <testSourceDirectory>src/test/scala</testSourceDirectory>
         <plugins>
