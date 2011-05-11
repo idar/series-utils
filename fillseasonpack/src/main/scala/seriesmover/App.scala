@@ -11,16 +11,21 @@ object App {
   def main(args: Array[String]) {
     checkArgs(args)
 
-    val episodes = SerieScanner.findEpisodesInDir(args(args.length-1)).sorted
+    val episodes = SerieScanner.findEpisodesInDir(args(args.length - 1)).sorted
     episodes.foreach(file => println(file))
-    val candidates_ = SerieScanner.findEpisodesInSubdirs(args(0))
-    val candidates = candidates_.filterNot(candidate => isInTarget(candidate,episodes));
+
+    var candidates_ = SerieScanner.findEpisodesInSubdirs(args(0))
+    for (arg <- args.dropRight(1).drop(1)) {
+      candidates_ = candidates_ ::: SerieScanner.findEpisodesInSubdirs(arg);
+    }
+
+    val candidates = candidates_.filterNot(candidate => isInTarget(candidate, episodes));
     println("\n Listing candidates for each episode: ")
     episodes.foreach(serie => move(serie, candidates.filter(candidate => candidate == serie)))
   }
 
-  def isInTarget(candidate: SerieFile, episodes:Array[SerieFile]) : Boolean = {
-    episodes.foreach(sf => if(sf.file.equals(candidate.file)) return true)
+  def isInTarget(candidate: SerieFile, episodes: Array[SerieFile]): Boolean = {
+    episodes.foreach(sf => if (sf.file.equals(candidate.file)) return true)
     return false;
   }
 
